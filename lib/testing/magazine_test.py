@@ -28,12 +28,12 @@ class TestMagazine:
         assert magazine_1.name == "New Yorker"
 
         # comment out the next two lines if using Exceptions
-        magazine_2.name = 2
-        assert magazine_2.name == "AD"
+        # magazine_2.name = 2
+        # assert magazine_2.name == "AD"
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Magazine(2, "Numbers")
+        with pytest.raises(Exception):
+            Magazine(2, "Numbers")
 
     def test_name_len(self):
         """magazine name is between 2 and 16 characters, inclusive"""
@@ -44,20 +44,20 @@ class TestMagazine:
         assert 2 <= len(magazine_2.name) <= 16
 
         # comment out the next two lines if using Exceptions
-        magazine_1.name = "New Yorker Plus X"
-        assert magazine_1.name == "Vogue"
+        # magazine_1.name = "New Yorker Plus X"
+        # assert magazine_1.name == "Vogue"
 
         # comment out the next two lines if using Exceptions
-        magazine_2.name = "A"
-        assert magazine_2.name == "AD"
+        # magazine_2.name = "A"
+        # assert magazine_2.name == "AD"
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     magazine_1.name = "New Yorker Plus X"
+        with pytest.raises(Exception):
+            magazine_1.name = "New Yorker Plus X"
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     magazine_2.name = "A"
+        with pytest.raises(Exception):
+            magazine_2.name = "A"
 
     def test_has_category(self):
         """Magazine is initialized with a category"""
@@ -83,7 +83,7 @@ class TestMagazine:
         # comment out the next two lines if using Exceptions
         magazine_2.category = 2
         assert magazine_2.category == "Architecture"
-        
+
         assert isinstance(magazine_2.category, str)
 
         # uncomment the next two lines if using Exceptions
@@ -200,25 +200,27 @@ class TestMagazine:
 
         assert author_1 in magazine_1.contributing_authors()
         assert author_2 not in magazine_1.contributing_authors()
-        assert all(isinstance(author, Author) for author in magazine_1.contributing_authors())
+        assert all(
+            isinstance(author, Author) for author in magazine_1.contributing_authors()
+        )
         assert magazine_2.contributing_authors() is None
 
-    # def test_top_publisher(self):
-    #     """returns the magazine with the most articles"""
-    #     Magazine.all = []
-    #     Article.all = []
-    #     assert Magazine.top_publisher() == None
+    def test_top_publisher(self):
+        """returns the magazine with the most articles"""
+        Magazine.all = []
+        Article.all = []
+        assert Magazine.top_publisher() == None
 
-    #     author_1 = Author("Carry Bradshaw")
-    #     magazine_1 = Magazine("Vogue", "Fashion")
-    #     magazine_2 = Magazine("AD", "Architecture")
-    #     assert Magazine.top_publisher() == None
+        author_1 = Author("Carry Bradshaw")
+        magazine_1 = Magazine("Vogue", "Fashion")
+        magazine_2 = Magazine("AD", "Architecture")
+        assert Magazine.top_publisher() == None
 
-    #     Article(author_1, magazine_1, "How to wear a tutu with style")
-    #     Article(author_1, magazine_1, "Dating life in NYC")
-    #     Article(author_1, magazine_1, "How to be single and happy")
-    #     Article(author_1, magazine_2, "2023 Eccentric Design Trends")
-    #     Article(author_1, magazine_2, "Carrara Marble is so 2020")
-        
-    #     assert Magazine.top_publisher() == magazine_1
-    #     assert isinstance(Magazine.top_publisher(), Magazine)
+        Article(author_1, magazine_1, "How to wear a tutu with style")
+        Article(author_1, magazine_1, "Dating life in NYC")
+        Article(author_1, magazine_1, "How to be single and happy")
+        Article(author_1, magazine_2, "2023 Eccentric Design Trends")
+        Article(author_1, magazine_2, "Carrara Marble is so 2020")
+
+        assert Magazine.top_publisher() == magazine_1
+        assert isinstance(Magazine.top_publisher(), Magazine)
